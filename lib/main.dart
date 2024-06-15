@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'models/news.dart';
-import 'models/category.dart';
-import 'services/news_services.dart';
+import 'package:news_flutter/models/news.dart';
+import 'package:news_flutter/models/category.dart';
+import 'package:news_flutter/services/news_services.dart';
 
 void main() {
   runApp(MyApp());
