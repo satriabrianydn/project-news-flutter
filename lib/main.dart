@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/models/category.dart';
 import 'package:news_flutter/services/news_services.dart';
@@ -11,9 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'News App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: MainScreen(),
     );
@@ -28,12 +31,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    CategoryListScreen(),
-    Center(child: Text('Favorites')),
-    Center(child: Text('Settings')),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -44,20 +41,39 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News App'),
+        title: Text(
+          'News App',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+          ),
+        ),
+        backgroundColor: Colors.green,
+        iconTheme: IconThemeData(
+          color: Colors.white, // Ganti warna ikon drawer
+        ),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Categories'),
+              child: Text(
+                'Categories',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                ),
+              ),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.green,
               ),
             ),
             ListTile(
-              title: Text('Games News'),
+              title: Text(
+                'Games News',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -70,20 +86,26 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Games Console News'),
+              title: Text(
+                'Games Console News',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NewsListScreen(
-                        endpoint: '/api/games/console-game?page=1'),
+                    builder: (context) =>
+                        NewsListScreen(endpoint: '/api/games/console-game?page=1'),
                   ),
                 );
               },
             ),
             ListTile(
-              title: Text('E-Sport News'),
+              title: Text(
+                'E-Sport News',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -96,7 +118,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Update Game News'),
+              title: Text(
+                'Update Game News',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -109,7 +134,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Lazy Talk'),
+              title: Text(
+                'Lazy Talk',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -122,7 +150,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('PC Games'),
+              title: Text(
+                'PC Games',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -135,7 +166,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Game Review'),
+              title: Text(
+                'Game Review',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -148,7 +182,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech News'),
+              title: Text(
+                'Tech News',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -161,20 +198,26 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech Cranky-Lounge'),
+              title: Text(
+                'Tech Cranky-Lounge',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NewsListScreen(
-                        endpoint: '/api/tech/cranky-lounge?page=1'),
+                    builder: (context) =>
+                        NewsListScreen(endpoint: '/api/tech/cranky-lounge?page=1'),
                   ),
                 );
               },
             ),
             ListTile(
-              title: Text('Tech News Update'),
+              title: Text(
+                'Tech News Update',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -187,7 +230,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech Setup'),
+              title: Text(
+                'Tech Setup',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -200,7 +246,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech Recommend'),
+              title: Text(
+                'Tech Recommend',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -213,7 +262,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech Review'),
+              title: Text(
+                'Tech Review',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -226,7 +278,10 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-              title: Text('Tech Tip'),
+              title: Text(
+                'Tech Tip',
+                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -242,7 +297,10 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: Text(
+          'Selamat Datang',
+          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -300,7 +358,10 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
             itemBuilder: (context, index) {
               Category category = snapshot.data![index];
               return ListTile(
-                title: Text(category.name),
+                title: Text(
+                  category.name,
+                  style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -341,7 +402,10 @@ class _NewsListScreenState extends State<NewsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News List'),
+        title: Text(
+          'News List',
+          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+        ),
       ),
       body: FutureBuilder<List<News>>(
         future: futureNews,
@@ -358,10 +422,15 @@ class _NewsListScreenState extends State<NewsListScreen> {
               itemBuilder: (context, index) {
                 News news = snapshot.data![index];
                 return ListTile(
-                  leading:
-                      Image.network(news.thumb, width: 100, fit: BoxFit.cover),
-                  title: Text(news.title),
-                  subtitle: Text(news.author),
+                  leading: Image.network(news.thumb, width: 100, fit: BoxFit.cover),
+                  title: Text(
+                    news.title,
+                    style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                  ),
+                  subtitle: Text(
+                    news.author,
+                    style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -389,7 +458,10 @@ class NewsDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(news.title),
+        title: Text(
+          news.title,
+          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -398,13 +470,27 @@ class NewsDetailScreen extends StatelessWidget {
           children: [
             Image.network(news.thumb),
             SizedBox(height: 8.0),
-            Text(news.title,
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+            Text(
+              news.title,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+            ),
             SizedBox(height: 8.0),
-            Text('By ${news.author} | ${news.time}',
-                style: TextStyle(color: Colors.grey)),
+            Text(
+              'By ${news.author} | ${news.time}',
+              style: TextStyle(
+                color: Colors.grey,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+            ),
             SizedBox(height: 16.0),
-            Text(news.desc),
+            Text(
+              news.desc,
+              style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+            ),
           ],
         ),
       ),
