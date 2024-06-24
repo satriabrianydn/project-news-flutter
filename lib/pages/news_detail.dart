@@ -15,7 +15,7 @@ class NewsDetailScreen extends StatelessWidget {
           "Detail Berita",
           style: TextStyle(color: Colors.white, fontFamily: GoogleFonts.poppins().fontFamily),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(

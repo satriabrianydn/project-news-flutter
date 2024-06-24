@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'News App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: MainScreen(),
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
             fontFamily: GoogleFonts.poppins().fontFamily,
           ),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -63,15 +63,26 @@ class _MainScreenState extends State<MainScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                'Categories',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                ),
-              ),
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Colors.grey[600],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.network(
+                    'https://thelazy.media/wp-content/uploads/2017/11/logo-website.png',
+                    height: 80, // Sesuaikan tinggi gambar
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Categories',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
             _buildDrawerItem(context, 'Games News', '/api/games?page=1'),
@@ -123,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.white,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey[600],
         onTap: _onItemTapped,
       ),
     );

@@ -31,7 +31,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
           widget.appBarTitle,
           style: TextStyle(color: Colors.white, fontFamily: GoogleFonts.poppins().fontFamily),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: FutureBuilder<List<News>>(
