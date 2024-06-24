@@ -61,7 +61,9 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Center(
-              child: ElevatedButton(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -84,6 +86,7 @@ class NewsDetailScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+              ),
               ),
             ),
           ],
