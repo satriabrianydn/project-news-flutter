@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'News App',
+      title: 'Lazy Media News',
       theme: ThemeData(
         primarySwatch: Colors.grey,
         textTheme: GoogleFonts.poppinsTextTheme(),
@@ -28,7 +28,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  String appBarTitle = 'News App';
+  String appBarTitle = 'Lazy Media News';
 
   void _onItemTapped(int index) {
     setState(() {
@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'News App',
+          'Lazy Media News',
           style: TextStyle(
             color: Colors.white,
             fontFamily: GoogleFonts.poppins().fontFamily,
@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   Image.network(
                     'https://thelazy.media/wp-content/uploads/2017/11/logo-website.png',
-                    height: 80, // Sesuaikan tinggi gambar
+                    height: 80,
                   ),
                   SizedBox(height: 10),
                   Text(

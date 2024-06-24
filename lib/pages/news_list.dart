@@ -66,7 +66,6 @@ class _NewsListScreenState extends State<NewsListScreen> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(news.thumb),
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -76,6 +75,10 @@ class _NewsListScreenState extends State<NewsListScreen> {
                         SizedBox(height: 4.0),
                         Text(
                           'Author: ${news.author}',
+                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                        ),
+                        Text(
+                          'Tag: ${news.tag}',
                           style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
                         ),
                         Text(

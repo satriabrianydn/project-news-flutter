@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
+import 'package:news_flutter/screens/full_news_screen.dart';
 
 class NewsDetailScreen extends StatelessWidget {
   final News news;
@@ -14,13 +15,14 @@ class NewsDetailScreen extends StatelessWidget {
         title: Text(
           "Detail Berita",
           style: TextStyle(
-              color: Colors.white,
-              fontFamily: GoogleFonts.poppins().fontFamily),
+            color: Colors.white,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+          ),
         ),
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Padding(
+      body: SingleChildScrollView( // Wrap the content in SingleChildScrollView
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +37,7 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "Penulis: ${news.author}\nTag: ${news.tag}\nWaktu: ${news.time}",
+              "Author: ${news.author}\nTag: ${news.tag}\nTime: ${news.time}",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
@@ -44,18 +46,12 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Center(
-              child: Image.network(news.thumb),
+              child: Image.network(
+                news.thumb,
+                height: 200,
+              ),
             ),
             SizedBox(height: 20),
-            // Text(
-            //   "Deskripsi:",
-            //   style: TextStyle(
-            //     fontSize: 18,
-            //     fontWeight: FontWeight.bold,
-            //     fontFamily: GoogleFonts.poppins().fontFamily,
-            //   ),
-            // ),
-            SizedBox(height: 10),
             Text(
               news.desc,
               style: TextStyle(
@@ -65,27 +61,29 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Center(
-              child: SizedBox(
-                width: double.infinity,
-                child: TextButton(
+              child: ElevatedButton(
                 onPressed: () {
-                  print('Test Button');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FullNewsScreen(news: news),
+                    ),
+                  );
                 },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.grey[600],
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[700],
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(0),
                   ),
                 ),
                 child: Text(
                   'Baca Selengkapnya',
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
               ),
             ),
           ],
