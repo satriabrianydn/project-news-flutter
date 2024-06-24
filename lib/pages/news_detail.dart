@@ -69,7 +69,7 @@ class NewsDetailScreen extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                 onPressed: () {
-                  Text('Lanjut');
+                  print('Test Button');
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey[600],
