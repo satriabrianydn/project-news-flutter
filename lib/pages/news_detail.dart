@@ -13,7 +13,9 @@ class NewsDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Detail Berita",
-          style: TextStyle(color: Colors.white, fontFamily: GoogleFonts.poppins().fontFamily),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: GoogleFonts.poppins().fontFamily),
         ),
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
@@ -35,22 +37,24 @@ class NewsDetailScreen extends StatelessWidget {
             Text(
               "Penulis: ${news.author}\nTag: ${news.tag}\nWaktu: ${news.time}",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.grey,
                 fontFamily: GoogleFonts.poppins().fontFamily,
               ),
             ),
             SizedBox(height: 20),
-            Image.network(news.thumb), // Menampilkan gambar thumbnail
-            SizedBox(height: 20),
-            Text(
-              "Deskripsi:",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
+            Center(
+              child: Image.network(news.thumb),
             ),
+            SizedBox(height: 20),
+            // Text(
+            //   "Deskripsi:",
+            //   style: TextStyle(
+            //     fontSize: 18,
+            //     fontWeight: FontWeight.bold,
+            //     fontFamily: GoogleFonts.poppins().fontFamily,
+            //   ),
+            // ),
             SizedBox(height: 10),
             Text(
               news.desc,
@@ -60,23 +64,30 @@ class NewsDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => FullNewsScreen(news: news),
-            //       ),
-            //     );
-            //   },
-            //   child: Text(
-            //     'Baca Selengkapnya',
-            //     style: TextStyle(
-            //       color: Colors.green,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
+            Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                onPressed: () {
+                  Text('Lanjut');
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.grey[600],
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(0),
+                  ),
+                ),
+                child: Text(
+                  'Baca Selengkapnya',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              ),
+            ),
           ],
         ),
       ),
