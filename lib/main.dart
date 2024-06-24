@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_flutter/models/news.dart';
-import 'package:news_flutter/models/category.dart';
-import 'package:news_flutter/services/news_services.dart';
+import 'package:news_flutter/pages/news_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,10 +28,17 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  String appBarTitle = 'News App';
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void _updateAppBarTitle(String title) {
+    setState(() {
+      appBarTitle = title;
     });
   }
 
@@ -50,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         backgroundColor: Colors.green,
         iconTheme: IconThemeData(
-          color: Colors.white, // Ganti warna ikon drawer
+          color: Colors.white, // Change drawer icon color
         ),
       ),
       drawer: Drawer(
@@ -69,230 +74,28 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.green,
               ),
             ),
-            ListTile(
-              title: Text(
-                'Games News',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Games Console News',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/console-game?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'E-Sport News',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/e-sport?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Update Game News',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/news?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Lazy Talk',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/lazy-talk?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'PC Games',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/pc?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Game Review',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/games/review?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech News',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech Cranky-Lounge',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/cranky-lounge?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech News Update',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/news?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech Setup',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/setup?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech Recommend',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/recommend?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech Review',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/review?page=1'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tech Tip',
-                style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        NewsListScreen(endpoint: '/api/tech/tip?page=1'),
-                  ),
-                );
-              },
-            ),
+            _buildDrawerItem(context, 'Games News', '/api/games?page=1'),
+            _buildDrawerItem(context, 'Games Console News',
+                '/api/games/console-game?page=1'),
+            _buildDrawerItem(
+                context, 'E-Sport News', '/api/games/e-sport?page=1'),
+            _buildDrawerItem(
+                context, 'Update Game News', '/api/games/news?page=1'),
+            _buildDrawerItem(
+                context, 'Lazy Talk', '/api/games/lazy-talk?page=1'),
+            _buildDrawerItem(context, 'PC Games', '/api/games/pc?page=1'),
+            _buildDrawerItem(
+                context, 'Game Review', '/api/games/review?page=1'),
+            _buildDrawerItem(context, 'Tech News', '/api/tech?page=1'),
+            _buildDrawerItem(context, 'Tech Cranky-Lounge',
+                '/api/tech/cranky-lounge?page=1'),
+            _buildDrawerItem(
+                context, 'Tech News Update', '/api/tech/news?page=1'),
+            _buildDrawerItem(context, 'Tech Setup', '/api/tech/setup?page=1'),
+            _buildDrawerItem(
+                context, 'Tech Recommend', '/api/tech/recommend?page=1'),
+            _buildDrawerItem(context, 'Tech Review', '/api/tech/review?page=1'),
+            _buildDrawerItem(context, 'Tech Tip', '/api/tech/tip?page=1'),
           ],
         ),
       ),
@@ -325,175 +128,24 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-}
 
-class CategoryListScreen extends StatefulWidget {
-  @override
-  _CategoryListScreenState createState() => _CategoryListScreenState();
-}
-
-class _CategoryListScreenState extends State<CategoryListScreen> {
-  late Future<List<Category>> futureCategories;
-
-  @override
-  void initState() {
-    super.initState();
-    futureCategories = NewsService().fetchCategories();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Category>>(
-      future: futureCategories,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No categories available'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              Category category = snapshot.data![index];
-              return ListTile(
-                title: Text(
-                  category.name,
-                  style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          NewsListScreen(endpoint: category.endpoint),
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        }
+  Widget _buildDrawerItem(BuildContext context, String title, String endpoint) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+      ),
+      onTap: () {
+        Navigator.pop(context);
+        _updateAppBarTitle(title);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                NewsListScreen(endpoint: endpoint, appBarTitle: title),
+          ),
+        );
       },
-    );
-  }
-}
-
-class NewsListScreen extends StatefulWidget {
-  final String endpoint;
-
-  NewsListScreen({required this.endpoint});
-
-  @override
-  _NewsListScreenState createState() => _NewsListScreenState();
-}
-
-class _NewsListScreenState extends State<NewsListScreen> {
-  late Future<List<News>> futureNews;
-
-  @override
-  void initState() {
-    super.initState();
-    futureNews = NewsService().fetchNews(widget.endpoint);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'News List',
-          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-        ),
-      ),
-      body: FutureBuilder<List<News>>(
-        future: futureNews,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No news available'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                News news = snapshot.data![index];
-                return ListTile(
-                  leading: Image.network(news.thumb, width: 100, fit: BoxFit.cover),
-                  title: Text(
-                    news.title,
-                    style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-                  ),
-                  subtitle: Text(
-                    news.author,
-                    style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewsDetailScreen(news: news),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class NewsDetailScreen extends StatelessWidget {
-  final News news;
-
-  NewsDetailScreen({required this.news});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          news.title,
-          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(news.thumb),
-            SizedBox(height: 8.0),
-            Text(
-              news.title,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              'By ${news.author} | ${news.time}',
-              style: TextStyle(
-                color: Colors.grey,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              news.desc,
-              style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
