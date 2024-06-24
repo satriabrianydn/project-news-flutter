@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         backgroundColor: Colors.green,
         iconTheme: IconThemeData(
-          color: Colors.white, // Change drawer icon color
+          color: Colors.white,
         ),
       ),
       drawer: Drawer(

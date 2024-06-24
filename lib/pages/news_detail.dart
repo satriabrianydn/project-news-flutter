@@ -13,9 +13,10 @@ class NewsDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Detail Berita",
-          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+          style: TextStyle(color: Colors.white, fontFamily: GoogleFonts.poppins().fontFamily),
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.green,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

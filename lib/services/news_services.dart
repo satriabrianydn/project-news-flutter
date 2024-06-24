@@ -9,13 +9,17 @@ class NewsService {
   Future<List<Category>> fetchCategories() async {
     List<Category> categories = [
       Category(name: "Games News", endpoint: "/api/games?page=1"),
-      Category(name: "Games Console News", endpoint: "/api/games/console-game?page=1"),
+      Category(
+          name: "Games Console News",
+          endpoint: "/api/games/console-game?page=1"),
       Category(name: "E-Sport News", endpoint: "/api/games/e-sport?page=1"),
       Category(name: "Update Game News", endpoint: "/api/games/news?page=1"),
       Category(name: "Lazy Talk", endpoint: "/api/games/lazy-talk?page=1"),
       Category(name: "PC Games", endpoint: "/api/games/pc?page=1"),
       Category(name: "Tech News", endpoint: "/api/tech?page=1"),
-      Category(name: "Tech Cranky-Lounge", endpoint: "/api/tech/cranky-lounge?page=1"),
+      Category(
+          name: "Tech Cranky-Lounge",
+          endpoint: "/api/tech/cranky-lounge?page=1"),
       Category(name: "Tech News Update", endpoint: "/api/tech/news?page=1"),
       Category(name: "Tech Setup", endpoint: "/api/tech/setup?page=1"),
       Category(name: "Tech Recommend", endpoint: "/api/tech/recommend?page=1"),
@@ -29,8 +33,10 @@ class NewsService {
     final response = await http.get(Uri.parse(baseUrl + endpoint));
 
     if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((news) => News.fromJson(news)).toList();
+      List<dynamic> jsonResponse = json.decode(response.body);
+      List<News> newsList =
+          jsonResponse.map((json) => News.fromJson(json)).toList();
+      return newsList;
     } else {
       throw Exception('Failed to load news');
     }

@@ -48,19 +48,51 @@ class _NewsListScreenState extends State<NewsListScreen> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 News news = snapshot.data![index];
-                return ListTile(
-                  title: Text(
-                    news.title,
-                    style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewsDetailScreen(news: news),
+                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    title: Text(
+                      news.title,
+                      style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                    ),
+                    leading: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(news.thumb),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    );
-                  },
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 4.0),
+                        Text(
+                          'Author: ${news.author}',
+                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                        ),
+                        Text(
+                          'Time: ${news.time}',
+                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailScreen(news: news),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
