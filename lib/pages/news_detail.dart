@@ -99,7 +99,6 @@ class NewsDetailScreen extends StatelessWidget {
                               return SizedBox.shrink();
                             } else if (text.startsWith('http') &&
                                 text.contains('youtube.com/embed')) {
-                              // Jika teks adalah URL video YouTube, tampilkan WebView dalam AspectRatio
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
