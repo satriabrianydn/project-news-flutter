@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/services/news_services.dart';
 import 'package:news_flutter/pages/news_detail.dart';
+// import 'package:news_flutter/screens/full_news_screen.dart';
 
 class NewsListScreen extends StatefulWidget {
   final String endpoint;
@@ -29,7 +30,9 @@ class _NewsListScreenState extends State<NewsListScreen> {
       appBar: AppBar(
         title: Text(
           widget.appBarTitle,
-          style: TextStyle(color: Colors.white, fontFamily: GoogleFonts.poppins().fontFamily),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: GoogleFonts.poppins().fontFamily),
         ),
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
@@ -55,10 +58,12 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   ),
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                   child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     title: Text(
                       news.title,
-                      style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                      style: TextStyle(
+                          fontFamily: GoogleFonts.poppins().fontFamily),
                     ),
                     leading: Container(
                       width: 120,
@@ -75,15 +80,18 @@ class _NewsListScreenState extends State<NewsListScreen> {
                         SizedBox(height: 4.0),
                         Text(
                           'Author: ${news.author}',
-                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                          style: TextStyle(
+                              fontFamily: GoogleFonts.poppins().fontFamily),
                         ),
                         Text(
                           'Tag: ${news.tag}',
-                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                          style: TextStyle(
+                              fontFamily: GoogleFonts.poppins().fontFamily),
                         ),
                         Text(
                           'Time: ${news.time}',
-                          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+                          style: TextStyle(
+                              fontFamily: GoogleFonts.poppins().fontFamily),
                         ),
                       ],
                     ),
@@ -91,7 +99,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NewsDetailScreen(news: news),
+                          builder: (context) =>
+                              NewsDetailScreen(newsKey: news.key),
                         ),
                       );
                     },

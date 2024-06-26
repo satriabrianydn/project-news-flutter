@@ -46,7 +46,7 @@ class NewsService {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       print('API Response: $data');  // Debugging line to print API response
-      return News.fromJson(data);
+      return News.fromJson(data, isDetail: true);
     } else {
       throw Exception('Failed to load news detail');
     }

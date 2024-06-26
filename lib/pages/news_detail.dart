@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
-import 'package:news_flutter/screens/full_news_screen.dart';
+import 'package:news_flutter/services/news_services.dart';
 
 class NewsDetailScreen extends StatelessWidget {
-  final News news;
+  final String newsKey;
 
-  NewsDetailScreen({required this.news});
+  NewsDetailScreen({required this.newsKey});
 
   @override
   Widget build(BuildContext context) {
@@ -22,75 +22,110 @@ class NewsDetailScreen extends StatelessWidget {
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: SingleChildScrollView( // Wrap the content in SingleChildScrollView
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              news.title,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Author: ${news.author}\nTag: ${news.tag}\nTime: ${news.time}",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: Image.network(
-                news.thumb,
-                height: 200,
-              ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              news.desc,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FullNewsScreen(news: news),
+      body: FutureBuilder<News>(
+        future: NewsService().fetchNewsDetail(newsKey),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData) {
+            return Center(child: Text('No details available'));
+          } else {
+            News news = snapshot.data!;
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      news.title,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                      ),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[700],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
-                  ),
-                ),
-                child: Text(
-                  'Baca Selengkapnya',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "By ${news.author}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                          ),
+                        ),
+                        Text(
+                          news.time,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8.0,
+                      children: news.categories?.map((category) {
+                        return Chip(
+                          label: Text(category),
+                          backgroundColor: Colors.grey[200],
+                        );
+                      }).toList() ?? [],
+                    ),
+                    SizedBox(height: 20),
+                    Column(
+                      children: news.figure?.map((url) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Image.network(url),
+                      )).toList() ?? [],
+                    ),
+                    SizedBox(height: 20),
+                    Column(
+                      children: news.content?.map((text) {
+                        if (text.trim().isEmpty) {
+                          return SizedBox.shrink();
+                        } else if (text.startsWith('http') && text.contains('youtube.com/embed')) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Center(
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: Text('Video YouTube: $text'),
+                              ),
+                            ),
+                          );
+                        } else if (text.startsWith('http')) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Center(child: Image.network(text)),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              text,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                              ),
+                            ),
+                          );
+                        }
+                      }).toList() ?? [],
+                    ),
+                  ],
                 ),
               ),
-              ),
-            ),
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }
