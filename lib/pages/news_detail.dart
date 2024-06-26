@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/services/news_services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsDetailScreen extends StatelessWidget {
   final String newsKey;
@@ -73,52 +74,71 @@ class NewsDetailScreen extends StatelessWidget {
                     Wrap(
                       spacing: 8.0,
                       children: news.categories?.map((category) {
-                        return Chip(
-                          label: Text(category),
-                          backgroundColor: Colors.grey[200],
-                        );
-                      }).toList() ?? [],
+                            return Chip(
+                              label: Text(category),
+                              backgroundColor: Colors.grey[200],
+                            );
+                          }).toList() ??
+                          [],
                     ),
                     SizedBox(height: 20),
                     Column(
-                      children: news.figure?.map((url) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Image.network(url),
-                      )).toList() ?? [],
+                      children: news.figure
+                              ?.map((url) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Image.network(url),
+                                  ))
+                              .toList() ??
+                          [],
                     ),
                     SizedBox(height: 20),
                     Column(
                       children: news.content?.map((text) {
-                        if (text.trim().isEmpty) {
-                          return SizedBox.shrink();
-                        } else if (text.startsWith('http') && text.contains('youtube.com/embed')) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Center(
-                              child: AspectRatio(
-                                aspectRatio: 16 / 9,
-                                child: Text('Video YouTube: $text'),
-                              ),
-                            ),
-                          );
-                        } else if (text.startsWith('http')) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Center(child: Image.network(text)),
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(
-                              text,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
-                              ),
-                            ),
-                          );
-                        }
-                      }).toList() ?? [],
+                            if (text.trim().isEmpty) {
+                              return SizedBox.shrink();
+                            } else if (text.startsWith('http') &&
+                                text.contains('youtube.com/embed')) {
+                              // Jika teks adalah URL video YouTube, tampilkan WebView dalam AspectRatio
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Center(
+                                  child: AspectRatio(
+                                    aspectRatio: 16 /
+                                        9,
+                                    child: WebView(
+                                      initialUrl: text,
+                                      javascriptMode:
+                                          JavascriptMode.unrestricted,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else if (text.startsWith('http')) {
+                              // Jika teks adalah URL gambar, tampilkan gambar
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Center(child: Image.network(text)),
+                              );
+                            } else {
+                              // Teks biasa
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Text(
+                                  text,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                  ),
+                                ),
+                              );
+                            }
+                          }).toList() ??
+                          [],
                     ),
                   ],
                 ),
