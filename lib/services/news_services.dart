@@ -9,26 +9,26 @@ class NewsService {
   // Fetch Categories
   Future<List<Category>> fetchCategories() async {
     List<Category> categories = [
-      Category(name: "Games News", endpoint: "/api/games?page=1"),
-      Category(name: "Games Console News", endpoint: "/api/games/console-game?page=1"),
-      Category(name: "E-Sport News", endpoint: "/api/games/e-sport?page=1"),
-      Category(name: "Update Game News", endpoint: "/api/games/news?page=1"),
-      Category(name: "Lazy Talk", endpoint: "/api/games/lazy-talk?page=1"),
-      Category(name: "PC Games", endpoint: "/api/games/pc?page=1"),
-      Category(name: "Tech News", endpoint: "/api/tech?page=1"),
-      Category(name: "Tech Cranky-Lounge", endpoint: "/api/tech/cranky-lounge?page=1"),
-      Category(name: "Tech News Update", endpoint: "/api/tech/news?page=1"),
-      Category(name: "Tech Setup", endpoint: "/api/tech/setup?page=1"),
-      Category(name: "Tech Recommend", endpoint: "/api/tech/recommend?page=1"),
-      Category(name: "Tech Review", endpoint: "/api/tech/review?page=1"),
-      Category(name: "Tech Tip", endpoint: "/api/tech/tip?page=1"),
+      Category(name: "Games News", endpoint: "/api/games"),
+      Category(name: "Games Console News", endpoint: "/api/games/console-game"),
+      Category(name: "E-Sport News", endpoint: "/api/games/e-sport"),
+      Category(name: "Update Game News", endpoint: "/api/games/news"),
+      Category(name: "Lazy Talk", endpoint: "/api/games/lazy-talk"),
+      Category(name: "PC Games", endpoint: "/api/games/pc"),
+      Category(name: "Tech News", endpoint: "/api/tech"),
+      Category(name: "Tech Cranky-Lounge", endpoint: "/api/tech/cranky-lounge"),
+      Category(name: "Tech News Update", endpoint: "/api/tech/news"),
+      Category(name: "Tech Setup", endpoint: "/api/tech/setup"),
+      Category(name: "Tech Recommend", endpoint: "/api/tech/recommend"),
+      Category(name: "Tech Review", endpoint: "/api/tech/review"),
+      Category(name: "Tech Tip", endpoint: "/api/tech/tip"),
     ];
     return categories;
   }
 
-  // Fetch News List
-  Future<List<News>> fetchNews(String endpoint) async {
-    final response = await http.get(Uri.parse(baseUrl + endpoint));
+  // Fetch News List with Pagination
+  Future<List<News>> fetchNews(String endpoint, {int page = 1}) async {
+    final response = await http.get(Uri.parse("$baseUrl$endpoint?page=$page"));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);

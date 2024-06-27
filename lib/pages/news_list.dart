@@ -16,11 +16,37 @@ class NewsListScreen extends StatefulWidget {
 
 class _NewsListScreenState extends State<NewsListScreen> {
   late Future<List<News>> futureNews;
+  List<News> newsList = [];
+  bool isLoading = false;
+  int currentPage = 1;
 
   @override
   void initState() {
     super.initState();
-    futureNews = NewsService().fetchNews(widget.endpoint);
+    loadNews();
+  }
+
+  Future<void> loadNews() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      List<News> fetchedNews = await NewsService().fetchNews(widget.endpoint.replaceAll('page=1', 'page=$currentPage'));
+      setState(() {
+        newsList.addAll(fetchedNews);
+        currentPage++;
+        isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error, for example, by showing a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load news: $error')),
+      );
+    }
   }
 
   @override
@@ -36,79 +62,103 @@ class _NewsListScreenState extends State<NewsListScreen> {
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: FutureBuilder<List<News>>(
-        future: futureNews,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No news available'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: newsList.length,
               itemBuilder: (context, index) {
-                News news = snapshot.data![index];
+                News news = newsList[index];
                 return Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.withOpacity(0.5)),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  child: ListTile(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    title: Text(
-                      news.title,
-                      style: TextStyle(
-                          fontFamily: GoogleFonts.poppins().fontFamily),
-                    ),
-                    leading: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(news.thumb),
-                        ),
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 4.0),
-                        Text(
-                          'Author: ${news.author}',
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily),
-                        ),
-                        Text(
-                          'Tag: ${news.tag}',
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily),
-                        ),
-                        Text(
-                          'Time: ${news.time}',
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily),
-                        ),
-                      ],
-                    ),
+                  child: InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              NewsDetailScreen(newsKey: news.key),
+                          builder: (context) => NewsDetailScreen(newsKey: news.key),
                         ),
                       );
                     },
+                    child: Column(
+                      children: [
+                        news.thumb.isNotEmpty
+                          ? Container(
+                              width: double.infinity,
+                              height: 200, // Adjust the height as needed
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(8.0),
+                                ),
+                                image: DecorationImage(
+                                  image: NetworkImage(news.thumb),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(8.0),
+                                ),
+                              ),
+                              child: Icon(Icons.image, size: 100, color: Colors.grey[600]),
+                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                news.title,
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                              SizedBox(height: 8.0),
+                              Text(
+                                'Author: ${news.author}',
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily),
+                              ),
+                              Text(
+                                'Tag: ${news.tag}',
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily),
+                              ),
+                              Text(
+                                'Time: ${news.time}',
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
-            );
-          }
-        },
+            ),
+          ),
+          if (isLoading) Center(child: CircularProgressIndicator()),
+          if (!isLoading)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: loadNews,
+                child: Text('Load More'),
+              ),
+            ),
+        ],
       ),
     );
   }
