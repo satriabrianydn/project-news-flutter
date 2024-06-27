@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/services/news_services.dart';
 import 'package:news_flutter/pages/news_detail.dart';
-// import 'package:news_flutter/screens/full_news_screen.dart';
 
 class NewsListScreen extends StatefulWidget {
   final String endpoint;
