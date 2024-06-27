@@ -32,7 +32,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
     });
 
     try {
-      List<News> fetchedNews = await NewsService().fetchNews(widget.endpoint.replaceAll('page=1', 'page=$currentPage'));
+      List<News> fetchedNews = await NewsService()
+          .fetchNews(widget.endpoint.replaceAll('page=1', 'page=$currentPage'));
       setState(() {
         newsList.addAll(fetchedNews);
         currentPage++;
@@ -62,101 +63,148 @@ class _NewsListScreenState extends State<NewsListScreen> {
         backgroundColor: Colors.grey[600],
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: newsList.length,
-              itemBuilder: (context, index) {
-                News news = newsList[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.5)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NewsDetailScreen(newsKey: news.key),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        news.thumb.isNotEmpty
-                          ? Container(
-                              width: double.infinity,
-                              height: 200, // Adjust the height as needed
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(8.0),
-                                ),
-                                image: DecorationImage(
-                                  image: NetworkImage(news.thumb),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )
-                          : Container(
-                              width: double.infinity,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(8.0),
-                                ),
-                              ),
-                              child: Icon(Icons.image, size: 100, color: Colors.grey[600]),
+          Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: newsList.length,
+                  itemBuilder: (context, index) {
+                    News news = newsList[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NewsDetailScreen(newsKey: news.key),
                             ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                news.title,
-                                style: TextStyle(
-                                    fontFamily: GoogleFonts.poppins().fontFamily,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            news.thumb.isNotEmpty
+                                ? Container(
+                                    width: double.infinity,
+                                    height: 200, // Adjust the height as needed
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(8.0),
+                                      ),
+                                      image: DecorationImage(
+                                        image: NetworkImage(news.thumb),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: double.infinity,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: Icon(Icons.image,
+                                        size: 100, color: Colors.grey[600]),
+                                  ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    news.title,
+                                    style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    'Author: ${news.author}',
+                                    style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily),
+                                  ),
+                                  Text(
+                                    'Tag: ${news.tag}',
+                                    style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily),
+                                  ),
+                                  Text(
+                                    'Time: ${news.time}',
+                                    style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily),
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 8.0),
-                              Text(
-                                'Author: ${news.author}',
-                                style: TextStyle(
-                                    fontFamily: GoogleFonts.poppins().fontFamily),
-                              ),
-                              Text(
-                                'Tag: ${news.tag}',
-                                style: TextStyle(
-                                    fontFamily: GoogleFonts.poppins().fontFamily),
-                              ),
-                              Text(
-                                'Time: ${news.time}',
-                                style: TextStyle(
-                                    fontFamily: GoogleFonts.poppins().fontFamily),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              if (!isLoading)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey[600],
+                      padding: EdgeInsets.symmetric(
+                          vertical:
+                              12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8),
+                      ),
+                      textStyle: TextStyle(
+                        fontSize: 16,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                      ),
+                    ),
+                    onPressed: loadNews,
+                    child: Container(
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, // Pusatkan konten di dalam tombol
+                        children: [
+                          Text(
+                            'Load More',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Icon(
+                            Icons.arrow_downward,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+            ],
           ),
-          if (isLoading) Center(child: CircularProgressIndicator()),
-          if (!isLoading)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: loadNews,
-                child: Text('Load More'),
-              ),
+          if (isLoading)
+            Center(
+              child: CircularProgressIndicator(),
             ),
         ],
       ),

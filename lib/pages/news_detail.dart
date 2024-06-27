@@ -34,9 +34,9 @@ class NewsDetailScreen extends StatelessWidget {
             return Center(child: Text('No details available'));
           } else {
             News news = snapshot.data!;
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,12 +100,11 @@ class NewsDetailScreen extends StatelessWidget {
                             } else if (text.startsWith('http') &&
                                 text.contains('youtube.com/embed')) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0),
                                 child: Center(
                                   child: AspectRatio(
-                                    aspectRatio: 16 /
-                                        9,
+                                    aspectRatio: 16 / 9,
                                     child: WebView(
                                       initialUrl: text,
                                       javascriptMode:
@@ -115,17 +114,16 @@ class NewsDetailScreen extends StatelessWidget {
                                 ),
                               );
                             } else if (text.startsWith('http')) {
-                              // Jika teks adalah URL gambar, tampilkan gambar
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0),
                                 child: Center(child: Image.network(text)),
                               );
                             } else {
                               // Teks biasa
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0),
                                 child: Text(
                                   text,
                                   style: TextStyle(
@@ -139,10 +137,45 @@ class NewsDetailScreen extends StatelessWidget {
                           }).toList() ??
                           [],
                     ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
             );
+          }
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[600],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey[400],
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.share),
+            label: 'Share',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Favorite',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.open_in_browser),
+            label: 'Open in Browser',
+          ),
+        ],
+        onTap: (index) {
+          // Handle on tap actions here
+          switch (index) {
+            case 0:
+              // Logika untuk berbagi berita
+              // Misalnya menggunakan package share atau yang lainnya
+              break;
+            case 1:
+              // Logika untuk menyimpan atau menandai berita favorit
+              break;
+            case 2:
+              // Logika untuk membuka berita di browser eksternal
+              break;
           }
         },
       ),
