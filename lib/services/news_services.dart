@@ -41,7 +41,7 @@ class NewsService {
 
   // Fetch News Detail
   Future<News> fetchNewsDetail(String key) async {
-    final response = await http.get(Uri.parse(baseUrl + 'api/detail/' + key));
+    final response = await http.get(Uri.parse(baseUrl + '/api/detail/' + key));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
