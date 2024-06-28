@@ -4,7 +4,7 @@ import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/models/category.dart';
 
 class NewsService {
-  final String baseUrl = "https://the-lazy-media-api.vercel.app/";
+  final String baseUrl = "https://the-lazy-media-api.vercel.app";
 
   // Fetch Categories
   Future<List<Category>> fetchCategories() async {
