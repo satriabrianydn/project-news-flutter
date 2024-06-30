@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Lazy Media News',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blueGrey,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: MainScreen(),
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
             fontFamily: GoogleFonts.poppins().fontFamily,
           ),
         ),
-        backgroundColor: Colors.grey[600],
+        backgroundColor: Colors.blueGrey[500],
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.grey[600],
+                color: Colors.blueGrey[500],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: Text(
           'Selamat Datang',
-          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily, fontSize: 20),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -123,8 +123,8 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
+            icon: Icon(Icons.bookmark),
+            label: 'Bookmark',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
@@ -132,9 +132,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white,
-        backgroundColor: Colors.grey[600],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey[400],
+        backgroundColor: Colors.blueGrey[500],
         onTap: _onItemTapped,
       ),
     );

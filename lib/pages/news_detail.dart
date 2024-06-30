@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/services/news_services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class NewsDetailScreen extends StatelessWidget {
   final String newsKey;
@@ -20,14 +21,19 @@ class NewsDetailScreen extends StatelessWidget {
             fontFamily: GoogleFonts.poppins().fontFamily,
           ),
         ),
-        backgroundColor: Colors.grey[600],
+        backgroundColor: Colors.blueGrey,
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: FutureBuilder<News>(
         future: NewsService().fetchNewsDetail(newsKey),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: LoadingAnimationWidget.beat(
+                color: Colors.blueGrey,
+                size: 50,
+              ),
+            );
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
@@ -120,7 +126,6 @@ class NewsDetailScreen extends StatelessWidget {
                                 child: Center(child: Image.network(text)),
                               );
                             } else {
-                              // Teks biasa
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8.0),
@@ -146,7 +151,7 @@ class NewsDetailScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[600],
+        backgroundColor: Colors.blueGrey[500],
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey[400],
         items: [
@@ -155,8 +160,8 @@ class NewsDetailScreen extends StatelessWidget {
             label: 'Share',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Favorite',
+            icon: Icon(Icons.bookmark_add_outlined),
+            label: 'Add to Bookmark',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.open_in_browser),
@@ -164,11 +169,9 @@ class NewsDetailScreen extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          // Handle on tap actions here
           switch (index) {
             case 0:
               // Logika untuk berbagi berita
-              // Misalnya menggunakan package share atau yang lainnya
               break;
             case 1:
               // Logika untuk menyimpan atau menandai berita favorit

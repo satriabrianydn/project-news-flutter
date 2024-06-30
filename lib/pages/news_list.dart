@@ -60,7 +60,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
               color: Colors.white,
               fontFamily: GoogleFonts.poppins().fontFamily),
         ),
-        backgroundColor: Colors.grey[600],
+        backgroundColor: Colors.blueGrey[500],
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Stack(
@@ -164,7 +164,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[600],
+                      backgroundColor: Colors.blueGrey[500],
                       padding: EdgeInsets.symmetric(
                           vertical:
                               12),
@@ -182,7 +182,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                       width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment
-                            .center, // Pusatkan konten di dalam tombol
+                            .center,
                         children: [
                           Text(
                             'Load More',
