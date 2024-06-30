@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutter/models/news.dart';
 import 'package:news_flutter/services/news_services.dart';
 import 'package:news_flutter/pages/news_detail.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class NewsListScreen extends StatefulWidget {
   final String endpoint;
@@ -94,7 +95,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                             news.thumb.isNotEmpty
                                 ? Container(
                                     width: double.infinity,
-                                    height: 200, // Adjust the height as needed
+                                    height: 200,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.vertical(
                                         top: Radius.circular(8.0),
@@ -165,12 +166,9 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueGrey[500],
-                      padding: EdgeInsets.symmetric(
-                          vertical:
-                              12),
+                      padding: EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            8),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       textStyle: TextStyle(
                         fontSize: 16,
@@ -181,8 +179,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                     child: Container(
                       width: double.infinity,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment
-                            .center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Load More',
@@ -204,7 +201,10 @@ class _NewsListScreenState extends State<NewsListScreen> {
           ),
           if (isLoading)
             Center(
-              child: CircularProgressIndicator(),
+              child: LoadingAnimationWidget.beat(
+                color: Colors.blueGrey,
+                size: 50,
+              ),
             ),
         ],
       ),

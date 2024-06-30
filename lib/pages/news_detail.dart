@@ -106,8 +106,8 @@ class NewsDetailScreen extends StatelessWidget {
                             } else if (text.startsWith('http') &&
                                 text.contains('youtube.com/embed')) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Center(
                                   child: AspectRatio(
                                     aspectRatio: 16 / 9,
@@ -121,14 +121,14 @@ class NewsDetailScreen extends StatelessWidget {
                               );
                             } else if (text.startsWith('http')) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Center(child: Image.network(text)),
                               );
                             } else {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
                                   text,
                                   style: TextStyle(
@@ -171,13 +171,13 @@ class NewsDetailScreen extends StatelessWidget {
         onTap: (index) {
           switch (index) {
             case 0:
-              // Logika untuk berbagi berita
+              // share news logic
               break;
             case 1:
-              // Logika untuk menyimpan atau menandai berita favorit
+              // bookmark logic
               break;
             case 2:
-              // Logika untuk membuka berita di browser eksternal
+              // Open in browser logic
               break;
           }
         },
