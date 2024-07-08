@@ -98,11 +98,11 @@ class NewsDetailScreen extends StatelessWidget {
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         return Image.network(
-                                          'https://via.placeholder.com/512?text=Image+not+found', // URL gambar fallback
+                                          'https://via.placeholder.com/512?text=Image+not+found',
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return Text(
-                                                'Image not found'); // Fallback terakhir jika gambar ini juga gagal
+                                                'Image not found');
                                           },
                                         );
                                       },
