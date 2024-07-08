@@ -93,7 +93,20 @@ class NewsDetailScreen extends StatelessWidget {
                               ?.map((url) => Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
-                                    child: Image.network(url),
+                                    child: Image.network(
+                                      url,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.network(
+                                          'https://via.placeholder.com/512?text=Image+not+found', // URL gambar fallback
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Text(
+                                                'Image not found'); // Fallback terakhir jika gambar ini juga gagal
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ))
                               .toList() ??
                           [],
