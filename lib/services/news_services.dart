@@ -35,7 +35,7 @@ class NewsService {
       List<News> newsList = jsonResponse.map((json) => News.fromJson(json)).toList();
       return newsList;
     } else {
-      throw Exception('Failed to load news');
+      throw Exception('Gagal memuat berita');
     }
   }
 
@@ -48,7 +48,7 @@ class NewsService {
       print('API Response: $data');  // Debugging line to print API response
       return News.fromJson(data, isDetail: true);
     } else {
-      throw Exception('Failed to load news detail');
+      throw Exception('Gagal memuat detail berita');
     }
   }
 }
